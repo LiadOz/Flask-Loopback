@@ -53,7 +53,7 @@ class FlaskLoopback(object):
     def __init__(self, flask_app):
         super(FlaskLoopback, self).__init__()
         self.flask_app = flask_app
-        self._test_client = flask_app.test_client()
+        self._test_client = flask_app.test_client(use_cookies=False)
         self._request_context_handlers = []
         self._registered_addresses = set()
         self._use_ssl = {}
@@ -101,9 +101,6 @@ class FlaskLoopback(object):
                 except CustomHTTPResponse as e:
                     return e.response
 
-            self._test_client.cookie_jar.clear()
-            for cookie in request._cookies:  # pylint: disable=protected-access
-                self._test_client.cookie_jar.set_cookie(cookie)
             resp = self._test_client.open(path, **open_kwargs)
             returned = requests.Response()
             assert returned.url is None

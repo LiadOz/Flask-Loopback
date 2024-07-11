@@ -1,6 +1,8 @@
 requests
 Flask
+six
 URLObject
+werkzeug>=1.0.0
 
 unittest2; python_version<'2.7'
 contextlib2; python_version<'3.3'
