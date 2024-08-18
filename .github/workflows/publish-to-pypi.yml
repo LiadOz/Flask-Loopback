@@ -2,7 +2,7 @@ name: Publish Python distribution to PyPI
 
 on: 
   workflow_run:
-    workflows: ['Tests']
+    workflows: [CI]
     types:
       - completed
 
