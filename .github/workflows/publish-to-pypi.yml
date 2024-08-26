@@ -2,13 +2,14 @@ name: Publish Python distribution to PyPI
 
 on: 
   workflow_run:
-    workflows: [CI]
+    workflows: [Tests]
     types:
       - completed
 
 jobs:
   build-distribution:
     name: Build distribution
+    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +34,6 @@ jobs:
 
   publish-to-pypi:
     name: Publish Python distribution to PyPI
-    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
     - build
     runs-on: ubuntu-latest
